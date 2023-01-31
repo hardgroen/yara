@@ -1,0 +1,12 @@
+﻿@model Yara.MvcClient.Models.Api.Memo
+<tr>
+    <td>
+        @Model.Title
+    </td>
+    <td>
+        @Model.Body
+    </td>
+    <td>
+        <a class="btn-primary" type="button" asp-action="Detail" asp-route-eventId="@Model.Id">DETAILS</a>
+    </td>
+</tr>
