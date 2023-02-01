@@ -4,8 +4,8 @@ using Yara.Services.Postings.DataContracts;
 
 namespace Yara.Services.Postings.Controllers;
 
+[Authorize]
 [ApiController]
-// [Authorize]
 [Route("api/[controller]")]
 public class MemoController : ControllerBase
 {

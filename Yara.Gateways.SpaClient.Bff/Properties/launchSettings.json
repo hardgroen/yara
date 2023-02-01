@@ -1,0 +1,14 @@
+﻿{
+  "profiles": {
+    "spa client bff": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": true,
+      //"launchUrl": "swagger",
+      "applicationUrl": "https://localhost:7168;http://localhost:5253",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}

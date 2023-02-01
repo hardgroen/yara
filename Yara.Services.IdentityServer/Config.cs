@@ -14,9 +14,9 @@ public static class Config
     public static IEnumerable<ApiScope> ApiScopes =>
         new ApiScope[]
         {
-            new ApiScope("scope1"),
             new ApiScope("postings.fullaccess"),
-            new ApiScope("mvcclientbff.fullaccess")
+            new ApiScope("mvcclientbff.fullaccess"),
+            new ApiScope("spaclientbff.fullaccess")
         };
 
     public static IEnumerable<ApiResource> ApiResources =>
@@ -29,6 +29,10 @@ public static class Config
                 new ApiResource("mvcclientbff", "MvcClient BFF")
                 {
                     Scopes = { "mvcclientbff.fullaccess" }
+                },
+                new ApiResource("spaclientbff", "SpaClient BFF")
+                {
+                    Scopes = { "spaclientbff.fullaccess" }
                 }
        };
 
@@ -64,8 +68,37 @@ public static class Config
             //},
             new Client
                 {
-                    ClientId = "mvcclientbfftodownstreamtokenexchangeclient",
-                    ClientName = "BFF to Downstream Token Exchange Client",
+                    ClientName = "Postings Swagger UI",
+                    ClientId = "postings.swagger",
+                    ClientSecrets = { new Secret("ce766e16-df99-411d-8d31-0f5bbc6b8eba".Sha256()) },
+                    AllowedGrantTypes = GrantTypes.Code,
+                    RequirePkce = true,
+                    RequireClientSecret = false,
+                    RedirectUris = { 
+                        "https://localhost:7122/swagger/oauth2-redirect.html",
+                        "https://localhost:7168/swagger/oauth2-redirect.html"
+                    },
+                    AllowedCorsOrigins = { "https://localhost:7122", "https://localhost:7168"},
+                    AllowedScopes = { "openid", "profile", "postings.fullaccess" },
+
+                    AllowOfflineAccess = true,
+                    RefreshTokenUsage = TokenUsage.ReUse,
+                    RefreshTokenExpiration = TokenExpiration.Sliding,
+                },
+            new Client
+                {
+                    ClientName = "SpaClient BFF to Downstream Token Exchange Client",
+                    ClientId = "spaclientbfftodownstreamtokenexchangeclient",                    
+                    AllowedGrantTypes = new[] { "urn:ietf:params:oauth:grant-type:token-exchange" },
+                    RequireConsent = false,
+                    ClientSecrets = { new Secret("0cdea0bc-779e-4368-b46b-09956f70712c".Sha256()) },
+                    AllowedScopes = {
+                         "openid", "profile", "postings.fullaccess" }
+                },
+            new Client
+                {
+                    ClientName = "MvcClient BFF to Downstream Token Exchange Client",
+                    ClientId = "mvcclientbfftodownstreamtokenexchangeclient",                    
                     AllowedGrantTypes = new[] { "urn:ietf:params:oauth:grant-type:token-exchange" },
                     RequireConsent = false,
                     ClientSecrets = { new Secret("0cdea0bc-779e-4368-b46b-09956f70712c".Sha256()) },
@@ -85,9 +118,7 @@ public static class Config
                     RefreshTokenUsage = TokenUsage.ReUse,
                     RefreshTokenExpiration = TokenExpiration.Sliding,
                     AccessTokenLifetime = 60,
-                    AllowedScopes = { "openid", "profile",
-                        // "postings.fullaccess",
-                        "mvcclientbff.fullaccess"}
+                    AllowedScopes = { "openid", "profile", "mvcclientbff.fullaccess"}
                 }
         };
 }

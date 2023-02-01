@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
-using Microsoft.IdentityModel.Tokens;
+using Microsoft.Extensions.Options;
+using Swashbuckle.AspNetCore.SwaggerGen;
 using System.IdentityModel.Tokens.Jwt;
+using Yara.Services.Postings.OpenApi;
 
 namespace Yara.Services.Postings
 {
@@ -10,18 +12,18 @@ namespace Yara.Services.Postings
     {
         public static WebApplication ConfigureServices(this WebApplicationBuilder builder)
         {
+            builder.Services.Configure<AppSettings>(builder.Configuration);
             builder.Services.AddHttpContextAccessor();
             builder.Services.AddAccessTokenManagement();
 
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
 
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                  .AddJwtBearer(options =>
+                  .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
                   {
                       options.Authority = "https://localhost:5002";
-                      options.Audience = "postings";
+                      options.Audience = "postings";                      
                   });
-
 
             var requireAuthenticatedUserPolicy = new AuthorizationPolicyBuilder()
                 .RequireAuthenticatedUser()
@@ -31,40 +33,10 @@ namespace Yara.Services.Postings
             {
                 configure.Filters.Add(new AuthorizeFilter(requireAuthenticatedUserPolicy));
             });
-
-            // builder.Services.AddControllers();
-
-            //builder.Services.AddAuthentication("token")
-            //    .AddJwtBearer("token", options =>
-            //    {
-            //        options.Authority = "https://localhost:5002";
-            //        options.MapInboundClaims = false;
-
-            //        options.TokenValidationParameters = new TokenValidationParameters()
-            //        {
-            //            ValidateAudience = false,
-            //            ValidTypes = new[] { "at+jwt" },
-
-            //            NameClaimType = "name",
-            //            RoleClaimType = "role"
-            //        };
-            //    });
-
-            //builder.Services.AddAuthorization(options =>
-            //{
-            //    options.AddPolicy("ApiCaller", policy =>
-            //    {
-            //        policy.RequireClaim("scope", "api");
-            //    });
-
-            //    options.AddPolicy("RequireInteractiveUser", policy =>
-            //    {
-            //        policy.RequireClaim("sub");
-            //    });
-            //});
-
+            builder.Services.AddAuthorization();
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+            builder.Services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerGenOptions>();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
@@ -76,13 +48,21 @@ namespace Yara.Services.Postings
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
-                app.UseSwagger();
-                app.UseSwaggerUI();
+                app.UseDeveloperExceptionPage();
             }
-
             app.UseHttpsRedirection();
-
+            app.UseRouting();
+            
+            app.UseAuthentication();
             app.UseAuthorization();
+            
+            app.UseSwagger();
+            app.UseSwaggerUI(options =>
+            {
+                options.OAuthClientId("postings.swagger");
+                options.OAuthAppName("Postings Swagger UI");
+                options.OAuthUsePkce();
+            });
 
             app.MapControllers();
 
