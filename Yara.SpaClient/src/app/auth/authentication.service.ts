@@ -1,5 +1,6 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { catchError, Observable, of, tap } from 'rxjs';
 
 import { Credentials, CredentialsService } from './credentials.service';
 
@@ -9,6 +10,10 @@ export interface LoginContext {
   remember?: boolean;
 }
 
+const routes = {
+  login: () => `/bff/login`,
+};
+
 /**
  * Provides a base for authentication workflow.
  * The login/logout methods should be replaced with proper implementation.
@@ -17,21 +22,33 @@ export interface LoginContext {
   providedIn: 'root',
 })
 export class AuthenticationService {
-  constructor(private credentialsService: CredentialsService) {}
+  constructor(private credentialsService: CredentialsService, private httpClient: HttpClient) {}
 
   /**
    * Authenticates the user.
    * @param context The login parameters.
    * @return The user credentials.
    */
-  login(context: LoginContext): Observable<Credentials> {
-    // Replace by proper authentication call
+  // login(context: LoginContext): Observable<Credentials> {
+  //   // Replace by proper authentication call
+  //   const data = {
+  //     username: context.username,
+  //     token: '123456',
+  //   };
+  //   this.credentialsService.setCredentials(data, context.remember);
+  //   return of(data);
+  // }
+
+  login(context: LoginContext): Observable<any> {
     const data = {
       username: context.username,
       token: '123456',
     };
     this.credentialsService.setCredentials(data, context.remember);
-    return of(data);
+    return this.httpClient.get<any>(routes.login()).pipe(
+      tap((result) => console.log),
+      catchError(() => of({}))
+    );
   }
 
   /**

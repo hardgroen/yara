@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Options;
@@ -10,8 +10,11 @@ namespace Yara.Services.Postings
 {
     public static class HostingExtensions
     {
+        private static string AllowedOrigins = "_allowedOrigins";
+
         public static WebApplication ConfigureServices(this WebApplicationBuilder builder)
         {
+           
             builder.Services.Configure<AppSettings>(builder.Configuration);
             builder.Services.AddHttpContextAccessor();
             builder.Services.AddAccessTokenManagement();
@@ -50,9 +53,9 @@ namespace Yara.Services.Postings
             {
                 app.UseDeveloperExceptionPage();
             }
+            
             app.UseHttpsRedirection();
             app.UseRouting();
-            
             app.UseAuthentication();
             app.UseAuthorization();
             

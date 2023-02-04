@@ -13,7 +13,8 @@ import { environment } from '@env/environment';
 export class ApiPrefixInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     if (!/^(http|https):/i.test(request.url)) {
-      request = request.clone({ url: environment.serverUrl + request.url });
+      const headers = request.headers.append('x-csrf', '1');
+      request = request.clone({ url: environment.serverUrl + request.url, headers: headers });
     }
     return next.handle(request);
   }

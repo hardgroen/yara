@@ -28,7 +28,7 @@ public static class Config
                 },
                 new ApiResource("mvcclientbff", "MvcClient BFF")
                 {
-                    Scopes = { "mvcclientbff.fullaccess" }
+                    Scopes = { "postings.fullaccess" }
                 },
                 new ApiResource("spaclientbff", "SpaClient BFF")
                 {
@@ -85,15 +85,30 @@ public static class Config
                     RefreshTokenUsage = TokenUsage.ReUse,
                     RefreshTokenExpiration = TokenExpiration.Sliding,
                 },
+            //new Client
+            //    {
+            //        ClientName = "SpaClient BFF to Downstream Token Exchange Client",
+            //        ClientId = "spaclientbfftodownstreamtokenexchangeclient",                    
+            //        AllowedGrantTypes = new[] { "urn:ietf:params:oauth:grant-type:token-exchange" },
+            //        RequireConsent = false,
+            //        ClientSecrets = { new Secret("0cdea0bc-779e-4368-b46b-09956f70712c".Sha256()) },
+            //        AllowedScopes = {
+            //             "openid", "profile", "postings.fullaccess" }
+            //    },
             new Client
                 {
-                    ClientName = "SpaClient BFF to Downstream Token Exchange Client",
-                    ClientId = "spaclientbfftodownstreamtokenexchangeclient",                    
-                    AllowedGrantTypes = new[] { "urn:ietf:params:oauth:grant-type:token-exchange" },
-                    RequireConsent = false,
+                    ClientName = "SpaClient BFF",
+                    ClientId = "spaclientbff",
                     ClientSecrets = { new Secret("0cdea0bc-779e-4368-b46b-09956f70712c".Sha256()) },
+                    AllowedGrantTypes = GrantTypes.CodeAndClientCredentials,
+                    RedirectUris = { "https://localhost:7168/signin-oidc" },
+                    FrontChannelLogoutUri = "https://localhost:7168/signout-oidc",
+                    BackChannelLogoutUri = "https://localhost:7168/bff/backchannel",
+                    PostLogoutRedirectUris = { "https://localhost:7168/signout-callback-oidc" },
+                    AllowOfflineAccess = true,
+                    AccessTokenLifetime = 60,
                     AllowedScopes = {
-                         "openid", "profile", "postings.fullaccess" }
+                            "openid", "profile", "postings.fullaccess" }
                 },
             new Client
                 {

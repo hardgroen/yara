@@ -8,8 +8,20 @@ namespace Yara.Services.IdentityServer;
 
 internal static class HostingExtensions
 {
+    private static string AllowedOrigins = "_allowedOrigins";
     public static WebApplication ConfigureServices(this WebApplicationBuilder builder)
     {
+        builder.Services.AddCors(options =>
+        {
+            options.AddPolicy(name: AllowedOrigins,
+                policy =>
+                {
+                    //policy.WithOrigins("http://localhost:4200");
+                    policy.AllowAnyOrigin();
+                    policy.AllowAnyHeader();
+                    policy.AllowAnyMethod();
+                });
+        });
         builder.Services.AddRazorPages();
 
         var isBuilder = builder.Services.AddIdentityServer(options =>
@@ -47,6 +59,7 @@ internal static class HostingExtensions
 
         app.UseStaticFiles();
         app.UseRouting();
+        app.UseCors(AllowedOrigins);
         app.UseIdentityServer();
         app.UseAuthorization();
         

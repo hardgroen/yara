@@ -10,8 +10,8 @@ Log.Information("Starting up SpaClient Bff");
 try
 {
     var builder = WebApplication.CreateBuilder(args);
-    builder.ConfigureServices();
-    var app = await builder.ConfigurePipeline();
+    var app = builder.ConfigureServices()
+            .ConfigurePipeline();
 
     app.Run();
 
