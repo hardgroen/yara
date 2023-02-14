@@ -1,0 +1,44 @@
+<mat-toolbar class="mat-elevation-z6 navbar" color="primary">
+  <div fxHide.gt-sm fxLayoutAlign="start center">
+    <button class="menu-button" mat-icon-button (click)="sidenav.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span class="title">{{ title }}</span>
+  </div>
+  <div fxHide.lt-md>
+    <a class="brand" href="https://github.com/ngx-rocket" translate>APP_NAME</a>
+    <button mat-button routerLink="/home" routerLinkActive="active">
+      <mat-icon>home</mat-icon>
+      <span translate>Home</span>
+    </button>
+    <button mat-button routerLink="/postings" routerLinkActive="active">
+      <span translate>Postings</span>
+    </button>
+    <button mat-button routerLink="/about" routerLinkActive="active">
+      <mat-icon>info</mat-icon>
+      <span translate>About</span>
+    </button>
+  </div>
+  <span fxFlex></span>
+  <app-language-selector [icon]="true"></app-language-selector>
+  <button mat-icon-button [matMenuTriggerFor]="userMenu">
+    <mat-icon>person</mat-icon>
+  </button>
+  <mat-menu #userMenu="matMenu">
+    <mat-list>
+      <mat-list-item *ngIf="anonymous$ | async">
+        <a class="" href="/bff/login">Login</a>
+      </mat-list-item>
+      <mat-list-item *ngIf="isAuthenticated$ | async">
+        <span translate>Logged in as</span>&nbsp;<b>{{ username$ | async }}</b>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item *ngIf="isAuthenticated$ | async">
+        <a href="{{ logoutUrl$ | async}}">Logout</a>
+      </mat-list-item>
+      <mat-list-item>
+        <a routerLink="/user-session" routerLinkActive="active">Show User Session</a>
+      </mat-list-item>
+    </mat-list>
+  </mat-menu>
+</mat-toolbar>

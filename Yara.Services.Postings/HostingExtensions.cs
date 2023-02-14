@@ -21,8 +21,8 @@ namespace Yara.Services.Postings
 
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
 
-            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                  .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
+            builder.Services.AddAuthentication("token")
+                  .AddJwtBearer("token", options =>
                   {
                       options.Authority = "https://localhost:5002";
                       options.Audience = "postings";                      
