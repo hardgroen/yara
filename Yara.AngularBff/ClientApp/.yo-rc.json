@@ -31,7 +31,6 @@
         "lodash",
         "moment"
       ],
-      "deploy": "azure",
       "projectName": "yara-spa-client",
       "packageManager": "npm",
       "mobile": [],
