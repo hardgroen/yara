@@ -34,7 +34,7 @@
       </mat-list-item>
       <mat-divider></mat-divider>
       <mat-list-item *ngIf="isAuthenticated$ | async">
-        <a href="{{ logoutUrl$ | async}}">Logout</a>
+        <a href="{{ logoutUrl$ | async }}">Logout</a>
       </mat-list-item>
       <mat-list-item>
         <a routerLink="/user-session" routerLinkActive="active">Show User Session</a>
