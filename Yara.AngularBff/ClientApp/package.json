@@ -74,7 +74,6 @@
     "eslint-plugin-import": "latest",
     "eslint-plugin-jsdoc": "latest",
     "eslint-plugin-prefer-arrow": "latest",
-    "hads": "^1.1.2",
     "https-proxy-agent": "^5.0.0",
     "jasmine-core": "~4.2.0",
     "jasmine-spec-reporter": "~7.0.0",
