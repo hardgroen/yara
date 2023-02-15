@@ -15,9 +15,10 @@ import { HomeModule } from './home/home.module';
 import { ShellModule } from './shell/shell.module';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { PostingsModule } from './postings/postings.module';
+
 import { CsrfHeaderInterceptor } from './@shared/http/csrf-header.interceptor';
 import { NotFoundComponent } from './not-found.component';
+import { PostingsModule } from './features/postings/postings.module';
 
 @NgModule({
   imports: [

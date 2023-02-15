@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Memo } from '@app/postings/services/models/memo';
-import { PostingsService } from '@app/postings/services/postings.service';
 import { finalize } from 'rxjs/operators';
+import { Memo } from '../../services/models/memo';
+import { PostingsService } from '../../services/postings.service';
 
 @Component({
   selector: 'app-list-postings',
