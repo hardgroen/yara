@@ -1,0 +1,13 @@
+<div class="container">
+  <mat-card>
+    <mat-card-content>
+      <mat-card-title translate>List op memos</mat-card-title>
+      <mat-card-subtitle>
+        <app-loader [isLoading]="isLoading" [size]="1.5"></app-loader>
+        <ul [hidden]="isLoading">
+          <li *ngFor="let memo of memos">{{ memo.title }} - {{ memo.body }}</li>
+        </ul>
+      </mat-card-subtitle>
+    </mat-card-content>
+  </mat-card>
+</div>

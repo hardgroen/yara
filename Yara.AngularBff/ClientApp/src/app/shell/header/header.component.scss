@@ -1,19 +1,49 @@
-@import "src/theme/theme-variables";
+@import "../../../styles-variables";
 
-.navbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1;
+
+.nav-button {
+  margin: 0 10px 0 0;
 }
 
-.brand {
-  color: mat-color($app-primary, "default-contrast");
-  text-decoration: none;
-  padding-right: 1rem;
+fa-icon {
+  font-size: 24px;
 }
 
-.menu-button {
-  margin-right: 1rem;
+.branding {
+  cursor: pointer;
+  overflow: hidden;
+  padding-top: 4px;
+  text-overflow: ellipsis;
+
+  &.center {
+    text-align: center;
+  }
+
+  img {
+    position: relative;
+    top: -2px;
+    width: 48px;
+    height: 48px;
+  }
+}
+
+.mat-stroked-button {
+  margin-right: 10px;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+mat-select {
+  margin: 0 0 0 20px;
+  width: 40px;
+  font-size: 14px;
+}
+
+@media (max-width: map-get($grid-breakpoints, lg)) {
+  .nav-button {
+    min-width: 0;
+    padding: 0 10px;
+  }
 }

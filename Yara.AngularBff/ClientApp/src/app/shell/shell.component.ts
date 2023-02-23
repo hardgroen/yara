@@ -1,11 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { MatSidenav } from '@angular/material/sidenav';
-import { filter } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { AppState } from '@app/@core';
+import { select, Store } from '@ngrx/store';
+import { selectEffectiveTheme } from '@app/@core/settings/settings.selectors';
 
-import { UntilDestroy, untilDestroyed } from '@shared';
-
-@UntilDestroy()
 @Component({
   selector: 'app-shell',
   templateUrl: './shell.component.html',
@@ -13,17 +12,11 @@ import { UntilDestroy, untilDestroyed } from '@shared';
 })
 export class ShellComponent implements OnInit {
   @ViewChild('sidenav', { static: false }) sidenav!: MatSidenav;
+  theme$: Observable<string> | undefined;
 
-  constructor(private breakpoint: BreakpointObserver) {}
+  constructor(private store: Store<AppState>) {}
 
-  ngOnInit() {
-    // Automatically close side menu on screens > small breakpoint
-    this.breakpoint
-      .observe([Breakpoints.Small, Breakpoints.XSmall])
-      .pipe(
-        filter(({ matches }) => !matches),
-        untilDestroyed(this)
-      )
-      .subscribe(() => this.sidenav?.close());
+  ngOnInit(): void {
+    this.theme$ = this.store.pipe(select(selectEffectiveTheme));
   }
 }

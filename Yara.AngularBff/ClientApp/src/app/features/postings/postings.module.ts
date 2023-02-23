@@ -1,15 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { MemoListComponent } from './components/memo-list/memo-list.component';
 import { PostingsRoutingModule } from './postings-routing.module';
-import { FlexLayoutModule } from '@angular/flex-layout';
 import { SharedModule } from '@app/@shared';
-import { MaterialModule } from '@app/material.module';
-import { TranslateModule } from '@ngx-translate/core';
-import { ListPostingsComponent } from './components/list-postings/list-postings.component';
+import { MaterialModule } from '@app/@shared/material.module';
 
 @NgModule({
-  declarations: [ListPostingsComponent],
-  imports: [CommonModule, TranslateModule, SharedModule, FlexLayoutModule, MaterialModule, PostingsRoutingModule],
+  declarations: [MemoListComponent],
+  imports: [CommonModule, SharedModule, MaterialModule, PostingsRoutingModule],
 })
 export class PostingsModule {}

@@ -1,0 +1,14 @@
+<div class="container">
+    <div class="row" rtl>
+      <div class="col-sm-12"><h1>Settings</h1></div>
+    </div>
+    <br>
+    <ng-container *ngIf="settings$ | async as settings">
+      <div class="row"  rtl>
+        <div class="col-md-6 group">
+          <app-theme-selector [currentTheme]="settings.theme" (themeSelected)="onThemeSelect($event)"></app-theme-selector>         
+        </div>        
+      </div>
+    </ng-container>
+  </div>
+  

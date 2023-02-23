@@ -2,28 +2,27 @@ import { Title } from '@angular/platform-browser';
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatSidenav } from '@angular/material/sidenav';
-
-import { AuthenticationService } from '@app/auth';
+import { AuthenticationService } from '@app/features/auth/services/authentication.service';
+import { AuthApiService } from '@app/@core/auth/auth-api.service';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
   @Input() sidenav!: MatSidenav;
-  public logoutUrl$ = this._authenticationService.getLogoutUrl();
-  public username$ = this._authenticationService.getUsername();
-  public isAuthenticated$ = this._authenticationService.getIsAuthenticated();
-  public anonymous$ = this._authenticationService.getIsAnonymous();
+  public logoutUrl$ = this._authApiService.getLogoutUrl();
+  public username$ = this._authApiService.getUsername();
+  public isAuthenticated$ = this._authApiService.getIsAuthenticated();
+  public anonymous$ = this._authApiService.getIsAnonymous();
 
   constructor(
     private _router: Router,
     private _titleService: Title,
-    private _authenticationService: AuthenticationService
+    private _authApiService: AuthApiService
   ) {}
-
-  ngOnInit() {}
 
   // logout() {
   //   const logoutUrl$ = this._authenticationService.getLogoutUrl();
@@ -37,5 +36,29 @@ export class HeaderComponent implements OnInit {
 
   get title(): string {
     return this._titleService.getTitle();
+  }
+
+  onLoginClick(): void {
+    console.log('login');
+  }
+
+  onLogoutClick(): void {
+    console.log('logout');
+    this._authApiService.getLogoutUrl(false).pipe(
+      map((result) => {
+        if (result !== null) {
+          return true;
+        } else {
+          this._logger.debug(
+            'Not authenticated, redirecting and adding redirect url...'
+          );
+          this._router.navigate(['/bff/login'], {
+            queryParams: { redirect: state.url },
+            replaceUrl: true,
+          });
+          return false;
+        }
+      })
+    this._authApiService.subscribe(() => this._router.navigate(['/login'], { replaceUrl: true }));
   }
 }

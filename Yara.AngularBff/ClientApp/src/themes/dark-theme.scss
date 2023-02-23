@@ -1,0 +1,12 @@
+@use '@angular/material' as mat;
+
+$yara-dark-primary: mat.define-palette(mat.$grey-palette, 700, 300, 900);
+$yara-dark-accent: mat.define-palette(mat.$blue-grey-palette, 400);
+$yara-dark-warn: mat.define-palette(mat.$red-palette, 500);
+
+$yara-dark-theme: mat.define-dark-theme((
+    color: (
+        primary: $yara-dark-primary, 
+        accent: $yara-dark-accent, 
+        warn: $yara-dark-warn),
+));

@@ -1,47 +1,41 @@
-<mat-toolbar class="mat-elevation-z6 navbar" color="primary">
-  <div fxHide.gt-sm fxLayoutAlign="start center">
-    <button class="menu-button" mat-icon-button (click)="sidenav.toggle()">
-      <mat-icon>menu</mat-icon>
+
+  <mat-toolbar color="primary" >
+    
+    <button mat-icon-button class="d-md-none" (click)="sidenav.open()">
+      <fa-icon icon="bars"></fa-icon>
     </button>
-    <span class="title">{{ title }}</span>
-  </div>
-  <div fxHide.lt-md>
-    <a class="brand" href="https://github.com/ngx-rocket" translate>APP_NAME</a>
-    <button mat-button routerLink="/home" routerLinkActive="active">
-      <mat-icon>home</mat-icon>
-      <span translate>Home</span>
+
+    <span class="d-none d-md-inline">
+      <button mat-icon-button routerLink="/home"
+        routerLinkActive="active">
+        <mat-icon>home</mat-icon>
+      </button>
+    </span>
+
+    <span class="d-none d-md-inline">
+      <button mat-button class="nav-button" routerLink="/postings"
+        routerLinkActive="active">
+        Postings
+      </button>
+    </span>    
+
+    <button mat-icon-button class="ms-auto"
+            [matMenuTriggerFor]="toolbarUserMenu">
+      <fa-icon icon="user-circle"></fa-icon>
     </button>
-    <button mat-button routerLink="/postings" routerLinkActive="active">
-      <span translate>Postings</span>
+    <mat-menu #toolbarUserMenu="matMenu">
+      <button mat-menu-item (click)="onLoginClick()">
+        <mat-icon><fa-icon icon="power-off"></fa-icon></mat-icon>
+        <span>login</span>
+      </button>
+      <button mat-menu-item (click)="onLogoutClick()">
+        <mat-icon><fa-icon icon="power-off"></fa-icon></mat-icon>
+        <span>logout</span>
+      </button>
+    </mat-menu>
+
+    <button mat-icon-button routerLink="/settings">
+      <fa-icon icon="cog"></fa-icon>
     </button>
-    <button mat-button routerLink="/about" routerLinkActive="active">
-      <mat-icon>info</mat-icon>
-      <span translate>About</span>
-    </button>
-  </div>
-  <span fxFlex></span>
-  <app-language-selector [icon]="true"></app-language-selector>
-  <button mat-icon-button [matMenuTriggerFor]="userMenu">
-    <mat-icon>person</mat-icon>
-  </button>
-  <mat-menu #userMenu="matMenu">
-    <mat-list>
-      <mat-list-item *ngIf="anonymous$ | async">
-        <a class="" href="/bff/login">Login</a>
-      </mat-list-item>
-      <mat-list-item *ngIf="isAuthenticated$ | async">
-        <span translate>Logged in as</span>&nbsp;<b>{{ username$ | async }}</b>
-      </mat-list-item>
-      <mat-divider></mat-divider>
-      <mat-list-item *ngIf="isAuthenticated$ | async">
-        <a href="{{ logoutUrl$ | async }}">Logout</a>
-      </mat-list-item>
-      <mat-list-item>
-        <a routerLink="/user-session" routerLinkActive="active">Show User Session</a>
-      </mat-list-item>
-    </mat-list>
-  </mat-menu>
-  <button mat-icon-button routerLink="settings" class="d-none d-sm-inline">
-    <fa-icon icon="cog"></fa-icon>
-  </button>
-</mat-toolbar>
+  </mat-toolbar>
+  

@@ -1,14 +1,18 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { marker } from '@biesbjerg/ngx-translate-extract-marker';
-
-import { ListPostingsComponent } from './components/list-postings/list-postings.component';
+import { MemoListComponent } from './components/memo-list/memo-list.component';
 import { Shell } from '@app/shell/shell.service';
+import { AuthGuardService } from '@app/@core/auth/auth-guard.service';
 
 const routes: Routes = [
   Shell.childRoutes([
     { path: '', redirectTo: '/postings', pathMatch: 'full' },
-    { path: 'postings', component: ListPostingsComponent, data: { title: marker('Recent postings') } },
+    {
+      path: 'postings',
+      component: MemoListComponent,
+      data: { title: 'Recent postings' },
+      canActivate: [AuthGuardService],
+    },
   ]),
 ];
 
