@@ -8,14 +8,14 @@ import {
   FontAwesomeModule,
 } from '@fortawesome/angular-fontawesome';
 import {
+  faSignIn,
+  faSignOut,
   faCog,
   faBars,
   faRocket,
   faPowerOff,
   faUserCircle,
   faPlayCircle,
-} from '@fortawesome/free-solid-svg-icons';
-import {
   faPlus,
   faEdit,
   faTrash,
@@ -34,6 +34,7 @@ import {
   faStream,
   faBook,
 } from '@fortawesome/free-solid-svg-icons';
+
 import { FormsModule } from '@angular/forms';
 
 @NgModule({
@@ -52,6 +53,8 @@ export class SharedModule {
       throw new Error('CoreModule is already loaded. Import only in AppModule');
     }
     faIconLibrary.addIcons(
+      faSignIn,
+      faSignOut,
       faCog,
       faBars,
       faRocket,

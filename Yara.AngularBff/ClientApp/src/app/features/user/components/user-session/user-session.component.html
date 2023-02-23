@@ -1,4 +1,4 @@
-<table class="table table-striped" aria-labelledby="tableLabel" *ngIf="isAuthenticated$ | async">
+<table class="table table-striped" aria-labelledby="tableLabel">
   <thead>
     <tr>
       <th>Type</th>
@@ -6,7 +6,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let claim of session$ | async">
+    <tr *ngFor="let claim of session">
       <td>{{ claim.type }}</td>
       <td>{{ claim.value }}</td>
     </tr>

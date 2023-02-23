@@ -1,0 +1,5 @@
+<div class="container">
+    <app-user-session *ngIf="isAuthenticated$ | async"
+    [session]="session$ | async">
+</app-user-session>
+</div>

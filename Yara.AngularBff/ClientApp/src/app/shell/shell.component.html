@@ -19,7 +19,7 @@
     <div class="wrapper">
 
       <div class="header" [style.position]="'fixed'" [class.mat-elevation-z4]="true">
-        <app-header [sidenav]="sidenav"></app-header>    
+        <app-header [sidenav]="sidenav" [logoutUrl]="logoutUrl$ | async"></app-header>    
       </div>
 
       <div class="content">
