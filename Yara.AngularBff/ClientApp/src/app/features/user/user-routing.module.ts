@@ -5,7 +5,7 @@ import { UserSessionComponent } from './components/user-session/user-session.com
 
 const routes: Routes = [
   Shell.childRoutes([
-    { path: '', redirectTo: '/user', pathMatch: 'full' },
+    { path: '', redirectTo: '/home', pathMatch: 'full' },
     {
       path: 'user',
       component: UserSessionComponent,
