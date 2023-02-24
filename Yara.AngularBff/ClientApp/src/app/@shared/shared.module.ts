@@ -36,11 +36,18 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 
 import { FormsModule } from '@angular/forms';
+import { ObserveElementDirective } from './directives/observe-element.directive';
 
 @NgModule({
   imports: [CommonModule, MaterialModule, FormsModule],
-  declarations: [LoaderComponent],
-  exports: [LoaderComponent, MaterialModule, FontAwesomeModule, FormsModule],
+  declarations: [LoaderComponent, ObserveElementDirective],
+  exports: [
+    LoaderComponent,
+    ObserveElementDirective,
+    MaterialModule,
+    FontAwesomeModule,
+    FormsModule,
+  ],
 })
 export class SharedModule {
   constructor(

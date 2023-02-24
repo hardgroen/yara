@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-home',
@@ -11,5 +10,9 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.isLoading = false;
+  }
+
+  isIntersecting(status: boolean, index: number) {
+    console.log('Element #' + index + ' is intersecting ' + status);
   }
 }
