@@ -37,13 +37,22 @@ import {
 
 import { FormsModule } from '@angular/forms';
 import { ObserveElementDirective } from './directives/observe-element.directive';
+import { NotFoundComponent } from './components/not-found/not-found.component';
+import { ExternalUrlDirective } from './directives/external-url.directive';
 
 @NgModule({
   imports: [CommonModule, MaterialModule, FormsModule],
-  declarations: [LoaderComponent, ObserveElementDirective],
+  declarations: [
+    LoaderComponent,
+    NotFoundComponent,
+    ObserveElementDirective,
+    ExternalUrlDirective,
+  ],
   exports: [
     LoaderComponent,
+    NotFoundComponent,
     ObserveElementDirective,
+    ExternalUrlDirective,
     MaterialModule,
     FontAwesomeModule,
     FormsModule,

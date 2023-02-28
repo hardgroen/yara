@@ -24,11 +24,11 @@
       <fa-icon icon="user-circle"></fa-icon>
     </button>
     <mat-menu #toolbarUserMenu="matMenu">
-      <a mat-menu-item href="/bff/login">
+      <a mat-menu-item appExternalUrl [href]="'/bff/login'">
         <fa-icon icon="sign-in"></fa-icon>
         <span>login</span>
       </a>
-      <a mat-menu-item [href]="logoutUrl">
+      <a mat-menu-item appExternalUrl [href]="logoutUrl">
         <fa-icon icon="sign-out"></fa-icon>
         <span>logout</span>
       </a>
