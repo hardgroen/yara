@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { Shell } from '@app/shell/shell.service';
-import { UserSessionComponent } from './components/user-session/user-session.component';
+import { UserContainerComponent } from './components/user-container.component';
 
 const routes: Routes = [
   Shell.childRoutes([
     { path: '', redirectTo: '/home', pathMatch: 'full' },
     {
       path: 'user',
-      component: UserSessionComponent,
+      component: UserContainerComponent,
       data: { title: 'Recent postings' },
       canActivate: [],
     },

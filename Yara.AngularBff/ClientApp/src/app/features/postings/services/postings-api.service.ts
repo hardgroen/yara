@@ -4,18 +4,18 @@ import { Observable, of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { Memo } from './models/memo';
 
-const routes = {
+const apiRoutes = {
   recentMemos: () => `/api/memo/`,
 };
 
 @Injectable({
   providedIn: 'root',
 })
-export class PostingsService {
+export class PostingsApiService {
   constructor(private httpClient: HttpClient) {}
 
   getRecentMemos(): Observable<Memo[]> {
-    return this.httpClient.get<Memo[]>(routes.recentMemos()).pipe(
+    return this.httpClient.get<Memo[]>(apiRoutes.recentMemos()).pipe(
       map((result) => result),
       catchError(() => of([]))
     );

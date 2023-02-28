@@ -15,8 +15,10 @@ export class AuthApiService {
 
   public getSession(ignoreCache = false) {
     if (!this.session$ || ignoreCache) {
-      this.session$ = this.http.get<Session>('bff/user').pipe(
+      console.log('wtf?');
+      this.session$ = this.http.get<Session>('/bff/user').pipe(
         catchError((err) => {
+          console.log('getsession error', err);
           return of(ANONYMOUS);
         }),
         shareReplay(CACHE_SIZE)

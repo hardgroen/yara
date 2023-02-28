@@ -12,15 +12,12 @@ import { Logger } from '@app/@core/logging/logger.service';
 export class HeaderComponent {
   @Input() sidenav!: MatSidenav;
   @Input() logoutUrl: string | null | undefined = undefined;
-  public username$ = this._authApiService.getUsername();
-  public isAuthenticated$ = this._authApiService.getIsAuthenticated();
-  public anonymous$ = this._authApiService.getIsAnonymous();
+  @Input() isAuthenticated: boolean | null = false;
+  @Input() userName: string | null | undefined = undefined;
+
   private _logger = new Logger('[Header]');
 
-  constructor(
-    private _titleService: Title,
-    private _authApiService: AuthApiService
-  ) {}
+  constructor(private _titleService: Title) {}
 
   get title(): string {
     return this._titleService.getTitle();
