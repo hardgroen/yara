@@ -6,7 +6,7 @@ import { Observable, of } from 'rxjs';
   selector: 'app-user-container',
   templateUrl: './user-container.component.html',
   styleUrls: ['./user-container.component.scss'],
-  // changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserContainerComponent {
   public session$: Observable<Session>;
