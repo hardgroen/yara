@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { SharedModule } from '@app/@shared';
 import { ThemeSelectorComponent } from './theme-selector.component';
 
 describe('ThemeSelectorComponent', () => {
@@ -8,9 +9,9 @@ describe('ThemeSelectorComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ThemeSelectorComponent ]
-    })
-    .compileComponents();
+      imports: [SharedModule, NoopAnimationsModule],
+      declarations: [ThemeSelectorComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ThemeSelectorComponent);
     component = fixture.componentInstance;
