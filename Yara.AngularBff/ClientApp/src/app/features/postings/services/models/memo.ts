@@ -1,5 +1,6 @@
 export interface Memo {
-  id: Number;
+  id: number;
   title: string;
   body: string;
+  entryDate: Date;
 }
