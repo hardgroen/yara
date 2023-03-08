@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from '@app/@shared';
 import { of } from 'rxjs';
@@ -11,7 +11,7 @@ describe('MemoListComponent', () => {
   let fixture: ComponentFixture<MemoListComponent>;
   let postingsApiService: jasmine.SpyObj<PostingsApiService>;
 
-  beforeEach(waitForAsync(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [SharedModule, NoopAnimationsModule],
       declarations: [MemoListComponent],
@@ -23,8 +23,8 @@ describe('MemoListComponent', () => {
           ]),
         },
       ],
-    }).compileComponents();
-  }));
+    });
+  });
 
   beforeEach(() => {
     postingsApiService = TestBed.inject(

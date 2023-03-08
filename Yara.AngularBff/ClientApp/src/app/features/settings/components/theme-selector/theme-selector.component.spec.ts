@@ -7,11 +7,11 @@ describe('ThemeSelectorComponent', () => {
   let component: ThemeSelectorComponent;
   let fixture: ComponentFixture<ThemeSelectorComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
+  beforeEach(() => {
+    TestBed.configureTestingModule({
       imports: [SharedModule, NoopAnimationsModule],
       declarations: [ThemeSelectorComponent],
-    }).compileComponents();
+    });
 
     fixture = TestBed.createComponent(ThemeSelectorComponent);
     component = fixture.componentInstance;

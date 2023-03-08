@@ -6,11 +6,10 @@ describe('UserSessionComponent', () => {
   let component: UserSessionComponent;
   let fixture: ComponentFixture<UserSessionComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ UserSessionComponent ]
-    })
-    .compileComponents();
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      declarations: [UserSessionComponent],
+    });
 
     fixture = TestBed.createComponent(UserSessionComponent);
     component = fixture.componentInstance;

@@ -17,12 +17,12 @@ describe('SettingsContainerComponent', () => {
   let mockSelectSettings: MemoizedSelector<{}, SettingsState>;
   let dispatchSpy;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
+  beforeEach(() => {
+    TestBed.configureTestingModule({
       imports: [SharedModule, NoopAnimationsModule],
       declarations: [SettingsContainerComponent, ThemeSelectorComponent],
       providers: [provideMockStore()],
-    }).compileComponents();
+    });
 
     store = TestBed.inject(MockStore);
     mockSelectSettings = store.overrideSelector(

@@ -10,8 +10,8 @@ describe('UserContainerComponent', () => {
   let fixture: ComponentFixture<UserContainerComponent>;
   let authApiService: jasmine.SpyObj<AuthApiService>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
+  beforeEach(() => {
+    TestBed.configureTestingModule({
       imports: [SharedModule, NoopAnimationsModule],
       declarations: [UserContainerComponent],
       providers: [
@@ -24,7 +24,7 @@ describe('UserContainerComponent', () => {
           ]),
         },
       ],
-    }).compileComponents();
+    });
 
     authApiService = TestBed.inject(
       AuthApiService

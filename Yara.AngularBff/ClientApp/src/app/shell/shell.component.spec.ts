@@ -13,21 +13,21 @@ describe('ShellComponent', () => {
   let store: MockStore;
   let authApiService: jasmine.SpyObj<AuthApiService>;
 
-  beforeEach(async () => {
+  beforeEach(() => {
     const mockedAuthApiService = jasmine.createSpyObj('AuthApiSevice', [
       'getLogoutUrl',
       'getUsername',
       'getIsAuthenticated',
       'getIsAnonymous',
     ]);
-    await TestBed.configureTestingModule({
+    TestBed.configureTestingModule({
       imports: [SharedModule, NoopAnimationsModule, RouterTestingModule],
       declarations: [ShellComponent, HeaderComponent],
       providers: [
         provideMockStore(),
         { provide: AuthApiService, useValue: mockedAuthApiService },
       ],
-    }).compileComponents();
+    });
 
     store = TestBed.inject(MockStore);
     fixture = TestBed.createComponent(ShellComponent);
