@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yara.MvcClient", "Yara.MvcClient\Yara.MvcClient.csproj", "{592BE715-F0DC-44A6-97B7-F4771A03023C}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yara.Services.Postings", "Yara.Services.Postings\Yara.Services.Postings.csproj", "{D156B429-7517-45B4-840F-2CF29C004DB1}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Clients", "Clients", "{67A8D22F-BF10-48ED-9F01-FDCBD4438A94}"
@@ -13,13 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{0F
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Integration", "Integration", "{2CB7FE6C-4C02-4B21-A0D0-265A0147C594}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Gateways", "Gateways", "{A65792A2-BB0B-4A8C-B547-BB90BF05B01F}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yara.Services.IdentityServer", "Yara.Services.IdentityServer\Yara.Services.IdentityServer.csproj", "{8CD9CD5B-6257-4F03-93BF-5653A0E39B7E}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yara.Gateways.MvcClient.Bff", "Yara.Gateways.MvcClient.Bff\Yara.Gateways.MvcClient.Bff.csproj", "{F98B734E-6896-48C5-B856-9A54B5A5E7AA}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yara.Gateways.SpaClient.Bff", "Yara.Gateways.SpaClient.Bff\Yara.Gateways.SpaClient.Bff.csproj", "{079D6C9C-C75B-40F7-9911-B395F23401C6}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yara.AngularBff", "Yara.AngularBff\Yara.AngularBff.csproj", "{AC5D8477-88EC-4A63-9DF6-D4DCB512C0B8}"
 EndProject
@@ -29,10 +21,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{592BE715-F0DC-44A6-97B7-F4771A03023C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{592BE715-F0DC-44A6-97B7-F4771A03023C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{592BE715-F0DC-44A6-97B7-F4771A03023C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{592BE715-F0DC-44A6-97B7-F4771A03023C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D156B429-7517-45B4-840F-2CF29C004DB1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D156B429-7517-45B4-840F-2CF29C004DB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D156B429-7517-45B4-840F-2CF29C004DB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -41,14 +29,6 @@ Global
 		{8CD9CD5B-6257-4F03-93BF-5653A0E39B7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8CD9CD5B-6257-4F03-93BF-5653A0E39B7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8CD9CD5B-6257-4F03-93BF-5653A0E39B7E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F98B734E-6896-48C5-B856-9A54B5A5E7AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F98B734E-6896-48C5-B856-9A54B5A5E7AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F98B734E-6896-48C5-B856-9A54B5A5E7AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F98B734E-6896-48C5-B856-9A54B5A5E7AA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{079D6C9C-C75B-40F7-9911-B395F23401C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{079D6C9C-C75B-40F7-9911-B395F23401C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{079D6C9C-C75B-40F7-9911-B395F23401C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{079D6C9C-C75B-40F7-9911-B395F23401C6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{AC5D8477-88EC-4A63-9DF6-D4DCB512C0B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{AC5D8477-88EC-4A63-9DF6-D4DCB512C0B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AC5D8477-88EC-4A63-9DF6-D4DCB512C0B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -58,11 +38,8 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{592BE715-F0DC-44A6-97B7-F4771A03023C} = {67A8D22F-BF10-48ED-9F01-FDCBD4438A94}
 		{D156B429-7517-45B4-840F-2CF29C004DB1} = {0F8482FC-1B41-4F82-9877-32C50CD8B79A}
 		{8CD9CD5B-6257-4F03-93BF-5653A0E39B7E} = {0F8482FC-1B41-4F82-9877-32C50CD8B79A}
-		{F98B734E-6896-48C5-B856-9A54B5A5E7AA} = {A65792A2-BB0B-4A8C-B547-BB90BF05B01F}
-		{079D6C9C-C75B-40F7-9911-B395F23401C6} = {A65792A2-BB0B-4A8C-B547-BB90BF05B01F}
 		{AC5D8477-88EC-4A63-9DF6-D4DCB512C0B8} = {67A8D22F-BF10-48ED-9F01-FDCBD4438A94}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
