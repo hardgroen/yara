@@ -11,6 +11,7 @@ import { FormsModule } from '@angular/forms';
 import { CsrfHeaderInterceptor } from './http-interceptors/csrf-header.interceptor';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ErrorHandlerInterceptor } from './http-interceptors/error-handler.interceptor';
+import { AuthEffects } from './auth/auth.effects';
 
 @NgModule({
   declarations: [],
@@ -21,7 +22,7 @@ import { ErrorHandlerInterceptor } from './http-interceptors/error-handler.inter
 
     // ngrx
     StoreModule.forRoot(reducers, {}),
-    EffectsModule.forRoot([SettingsEffects]),
+    EffectsModule.forRoot([SettingsEffects, AuthEffects]),
     environment.production
       ? []
       : StoreDevtoolsModule.instrument({

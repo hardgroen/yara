@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { Session } from '@core/auth/auth-api.service';
+import { AuthModel, Claim } from '@app/@core/auth/auth.model';
 
 @Component({
   selector: 'app-user-session',
@@ -8,9 +8,5 @@ import { Session } from '@core/auth/auth-api.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserSessionComponent {
-  @Input() session: Session | null = null;
-
-  constructor() {
-    console.log('session', this.session);
-  }
+  @Input() claims: Claim[] | null = [];
 }

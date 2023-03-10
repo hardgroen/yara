@@ -1,43 +1,43 @@
+<mat-toolbar color="primary">
+  <button mat-icon-button class="d-md-none" (click)="sidenav.open()">
+    <fa-icon icon="bars"></fa-icon>
+  </button>
 
-  <mat-toolbar color="primary" >
-    
-    <button mat-icon-button class="d-md-none" (click)="sidenav.open()">
-      <fa-icon icon="bars"></fa-icon>
+  <span class="d-none d-md-inline">
+    <button mat-icon-button routerLink="/home" routerLinkActive="active">
+      <mat-icon>home</mat-icon>
     </button>
+  </span>
 
-    <span class="d-none d-md-inline">
-      <button mat-icon-button routerLink="/home"
-        routerLinkActive="active">
-        <mat-icon>home</mat-icon>
-      </button>
-    </span>
-
-    <span class="d-none d-md-inline">
-      <button mat-button class="nav-button" routerLink="/postings"
-        routerLinkActive="active">
-        Postings
-      </button>
-    </span>    
-
-    <button mat-icon-button class="ms-auto"
-            [matMenuTriggerFor]="toolbarUserMenu">
-      <fa-icon icon="user-circle"></fa-icon>
+  <span class="d-none d-md-inline">
+    <button
+      mat-button
+      class="nav-button"
+      routerLink="/postings"
+      routerLinkActive="active"
+    >
+      Postings
     </button>
-    <span routerLink="user" routerLinkActive="active" *ngIf="isAuthenticated">logged in as: {{ userName }}</span>
-    <mat-menu #toolbarUserMenu="matMenu">
-      <a *ngIf="!isAuthenticated" mat-menu-item appExternalUrl [href]="'/bff/login'">
-        <fa-icon icon="sign-in"></fa-icon>
-        <span>login</span>
-      </a>
-      <a *ngIf="isAuthenticated" mat-menu-item appExternalUrl [href]="logoutUrl">
-        <fa-icon icon="sign-out"></fa-icon>
-        <span>logout</span>
-      </a>
-      
-    </mat-menu>
+  </span>
 
-    <button mat-icon-button routerLink="/settings">
-      <fa-icon icon="cog"></fa-icon>
+  <button mat-icon-button class="ms-auto" [matMenuTriggerFor]="toolbarUserMenu">
+    <fa-icon icon="user-circle"></fa-icon>
+  </button>
+  <span routerLink="user" routerLinkActive="active" *ngIf="isAuthenticated"
+    >logged in as: {{ userName }}</span
+  >
+  <mat-menu #toolbarUserMenu="matMenu">
+    <button *ngIf="!isAuthenticated" mat-menu-item (click)="loginClick()">
+      <fa-icon icon="sign-in"></fa-icon>
+      <span>login</span>
     </button>
-  </mat-toolbar>
-  
+    <button *ngIf="isAuthenticated" mat-menu-item (click)="logoutClick()">
+      <fa-icon icon="sign-out"></fa-icon>
+      <span>logout</span>
+    </button>
+  </mat-menu>
+
+  <button mat-icon-button routerLink="/settings">
+    <fa-icon icon="cog"></fa-icon>
+  </button>
+</mat-toolbar>

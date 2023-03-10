@@ -4,7 +4,6 @@ import { MaterialModule } from '@app/@shared/material.module';
 import { LoaderComponent } from './loader.component';
 
 describe('LoaderComponent', () => {
-  let component: LoaderComponent;
   let fixture: ComponentFixture<LoaderComponent>;
 
   beforeEach(() => {
@@ -16,7 +15,6 @@ describe('LoaderComponent', () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(LoaderComponent);
-    component = fixture.componentInstance;
     fixture.detectChanges();
   });
 

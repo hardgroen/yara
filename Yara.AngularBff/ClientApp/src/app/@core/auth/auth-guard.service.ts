@@ -1,36 +1,31 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, Router } from '@angular/router';
-import { AuthApiService } from './auth-api.service';
+import { CanActivate } from '@angular/router';
 import { Logger } from '../logging/logger.service';
-import { map, tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { select, Store } from '@ngrx/store';
+import { selectIsAuthenticated } from './auth.selectors';
+import { AuthApiActions } from '.';
+import { AuthState } from './auth.state';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthGuardService implements CanActivate {
   private _logger = new Logger('AuthGuardService');
-  constructor(
-    private _router: Router,
-    private _authApiService: AuthApiService
-  ) {}
+  private isAuthenticated$: Observable<boolean>;
 
-  // possible endless redirect loop?
+  constructor(private _store: Store<AuthState>) {
+    this.isAuthenticated$ = this._store.pipe(select(selectIsAuthenticated));
+  }
+
   canActivate() {
-    return this._authApiService.getIsAuthenticated(false).pipe(
-      tap((isAuthenticated) => this._logger.debug('result', isAuthenticated)),
+    return this.isAuthenticated$.pipe(
       map((isAuthenticated) => {
         if (isAuthenticated) {
           return true;
         } else {
-          this._logger.debug(
-            'Not authenticated, redirecting and adding redirect url...'
-          );
-          this._router.navigate(
-            ['externalRedirect', { externalUrl: '/bff/login' }],
-            {
-              replaceUrl: true,
-            }
-          );
+          this._store.dispatch(AuthApiActions.authGuardlogin());
           return false;
         }
       })
