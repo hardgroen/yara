@@ -1,8 +1,8 @@
-﻿namespace Yara.Services.Postings.DataContracts
+﻿namespace Yara.Services.Postings.DataContracts.ViewModels
 {
-    public class Memo
+    public class MemoViewModel
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
         public string Title { get; set; } = string.Empty;
         public string Body { get; set; } = string.Empty;
     }

@@ -2,8 +2,10 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Options;
+using NodaTime;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System.IdentityModel.Tokens.Jwt;
+using Yara.Services.Postings.Infra;
 using Yara.Services.Postings.OpenApi;
 
 namespace Yara.Services.Postings
@@ -14,7 +16,8 @@ namespace Yara.Services.Postings
 
         public static WebApplication ConfigureServices(this WebApplicationBuilder builder)
         {
-           
+            builder.Services.Configure<PostingsDatabaseSettings>(builder.Configuration.GetSection("PostingsDatabase"));
+            builder.Services.AddSingleton<IClock>(SystemClock.Instance);
             builder.Services.Configure<AppSettings>(builder.Configuration);
             builder.Services.AddHttpContextAccessor();
             builder.Services.AddAccessTokenManagement();
