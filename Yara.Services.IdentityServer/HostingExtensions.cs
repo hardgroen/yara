@@ -3,6 +3,8 @@ using Yara.Services.IdentityServer;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Serilog;
 using Yara.Services.IdentityServer.Services;
+using Microsoft.Extensions.Options;
+
 
 namespace Yara.Services.IdentityServer;
 

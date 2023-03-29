@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from '@env/environment';
 import { catchError, map, Observable, of, shareReplay } from 'rxjs';
-import { AuthModel, Session } from './auth.model';
+import { AuthModel, AuthorizePolicy, Permission, Session } from './auth.model';
 
 const ANONYMOUS: Session = null;
 const CACHE_SIZE = 1;
@@ -15,6 +16,18 @@ export class AuthApiService {
   private session$: Observable<Session> | null = null;
 
   constructor(private http: HttpClient) {}
+
+  public getResourcePermissions(): Observable<Permission[]> {
+    return this.http.get<Permission[]>(
+      `${environment.serverUrl}/authorizepermissions`
+    );
+  }
+
+  public getAuthorisationPolicies(): Observable<AuthorizePolicy[]> {
+    return this.http.get<AuthorizePolicy[]>(
+      `${environment.serverUrl}/authorization-policies`
+    );
+  }
 
   public getAuthModel(): Observable<AuthModel> {
     return this._getSession().pipe(

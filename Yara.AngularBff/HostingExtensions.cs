@@ -1,6 +1,17 @@
 using Duende.Bff;
 using Duende.Bff.Yarp;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.Extensions.Options;
+using NodaTime;
+using NodaTime.Serialization.SystemTextJson;
 using Serilog;
+using Swashbuckle.AspNetCore.SwaggerGen;
+using System.IdentityModel.Tokens.Jwt;
+using Yara.AngularBff.Infrastructure.Gateways;
+using Yara.AngularBff.Presentation.Infra;
+using Yara.AngularBff.Presentation.Infra.DelegatingHandlers;
+using Yara.AngularBff.Presentation.Infra.OpenApi;
 
 namespace Yara.AngularBff
 {
@@ -11,11 +22,32 @@ namespace Yara.AngularBff
             builder.Host.UseSerilog();
         
             // Add BFF services to DI - also add server-side session management
-            builder.Services.AddBff().AddRemoteApis();
+            builder.Services
+                .AddBff()
+                .AddServerSideSessions()
+                .AddRemoteApis();
 
             // local APIs
-            builder.Services.AddControllers();
+            var requireAuthenticatedUserPolicy = new AuthorizationPolicyBuilder()
+                .RequireAuthenticatedUser()
+                .Build();
 
+            builder.Services.AddControllers(configure =>
+            {
+                configure.Filters.Add(new AuthorizeFilter(requireAuthenticatedUserPolicy));
+            }).AddJsonOptions(opt => opt.JsonSerializerOptions.ConfigureForNodaTime(DateTimeZoneProviders.Tzdb));
+
+           
+
+            builder.Services.AddHttpContextAccessor();
+            builder.Services.AddTransient<PostingsHttpHandler>();
+            builder.Services.AddHttpClient<IPostingsGateway, PostingsGateway>(client =>
+            {
+                client.BaseAddress = new Uri("https://localhost:7122/");
+            }); //.AddHttpMessageHandler<PostingsHttpHandler>();
+            builder.Services.Configure<AppSettings>(builder.Configuration);
+
+            // JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
             builder.Services.AddAuthentication(options =>
             {
                 options.DefaultScheme = "cookie";
@@ -50,20 +82,42 @@ namespace Yara.AngularBff
                     options.GetClaimsFromUserInfoEndpoint = true;
                     options.SaveTokens = true;
 
-                    // request scopes + refresh tokens
+                    // request scopes
                     options.Scope.Clear();
                     options.Scope.Add("openid");
                     options.Scope.Add("profile");
                     options.Scope.Add("postings.fullaccess");
+                    // request refresh token
                     options.Scope.Add("offline_access");
+
+                    options.ClaimActions.Clear();
 
                     options.TokenValidationParameters = new()
                     {
                         NameClaimType = "name",
                         RoleClaimType = "role"
                     };
+
+                    options.Events = new Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectEvents
+                    {
+                        OnMessageReceived = ctx =>
+                        {
+                            var principal = ctx.Principal;
+                            return Task.CompletedTask;
+                        },
+                        OnTokenValidated = ctx =>
+                        {
+                            var principal = ctx.Principal;
+                            return Task.CompletedTask;
+                        }
+                    };
                 });
-            
+
+            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+            builder.Services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerGenOptions>();
+            builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddSwaggerGen();
+
             return builder;
         }
 
@@ -84,17 +138,26 @@ namespace Yara.AngularBff
             app.UseAuthorization();
             // login, logout, user, backchannel logout...
             app.MapBffManagementEndpoints();
+
+            app.UseSwagger();
+            app.UseSwaggerUI(options =>
+            {
+                options.OAuthClientId("spaclientbff.swagger");
+                options.OAuthAppName("YARA Swagger UI");
+                options.OAuthUsePkce();
+            });
+
             // local APIs
-            app.MapControllers()
-                .RequireAuthorization()
-                .AsBffApiEndpoint();
+            app.MapControllers();
+                //.RequireAuthorization()
+                //.AsBffApiEndpoint();
             
             // proxy endpoint for cross-site APIs
             // all calls to /api/* will be forwarded to the remote API
             // user or client access token will be attached in API call
             // user access token will be managed automatically using the refresh token
             app.MapRemoteBffApiEndpoint("/api", "https://localhost:7122/api")
-                .RequireAccessToken(TokenType.User);           
+                .RequireAccessToken(TokenType.UserOrClient);           
 
             app.MapFallbackToFile("index.html");
             return app;

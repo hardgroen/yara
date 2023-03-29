@@ -1,6 +1,7 @@
 import { InjectionToken, NgModule } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
+  ExtraOptions,
   PreloadAllModules,
   RouterModule,
   Routes,
@@ -19,10 +20,13 @@ const routes: Routes = [
   { path: '**', redirectTo: '', pathMatch: 'full' },
 ];
 
+export const routingConfiguration: ExtraOptions = {
+  paramsInheritanceStrategy: 'always',
+  preloadingStrategy: PreloadAllModules,
+};
+
 @NgModule({
-  imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules }),
-  ],
+  imports: [RouterModule.forRoot(routes, routingConfiguration)],
   exports: [RouterModule],
   providers: [
     {

@@ -10,7 +10,8 @@ const routes: Routes = [
     {
       path: 'postings',
       component: MemoListComponent,
-      data: { title: 'Recent postings' },
+      // data: { title: 'Recent postings' },
+      data: createAuthorizeRouteData(['EMPLOYEE_READ']),
       canActivate: [AuthGuardService],
     },
   ]),
